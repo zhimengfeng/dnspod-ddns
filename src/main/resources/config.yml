@@ -1,0 +1,15 @@
+# 需要动态解析的主域名，不包含二级域名（如www.baidu.com -> baidu.com）
+myDomain: youdomain.com
+# dnspod 云API秘钥（APPID），申请位置：https://console.cloud.tencent.com/cam/capi
+dnspodSecretId: awfwefaweffweafawfawefffawefawwaafaw
+# dnspod 云API秘钥
+dnspodSecretKey: awefawfawfawefawfawfawfefefefeff
+# 需要解析的记录列表，需要提前在dnspod上添加初始化的解析记录，程序未做自动添加解析记录的功能
+dnspodRecordMatchRuleList:
+  - {subDomain: 'www', type: 'A'}
+  - {subDomain: '*', type: 'A'}
+  - {subDomain: '@', type: 'A'}
+# 用于拨号的主路由的IP地址，目前对接的为小米路由，用于获取公网IP。运行程序的电脑/服务器必须能够访问到此路由器
+miRouterIp: 192.168.31.1
+# 用于拨号的主路由的密码
+miRouterLoginPass: youmirooterpassword

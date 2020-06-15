@@ -156,6 +156,8 @@ public class MiRouter {
         // 如未登录或超时则执行登录
         ifNotLoginOrTimeoutThenLogin();
 
+        LogUtils.println("宽带重新拨号中。。。");
+
         // http://192.168.1.1/cgi-bin/luci/;stok=7a920aa1098e73a494263e5223b47a4f/api/xqnetwork/pppoe_start
         String url = "http://" + router_ip + getPubIp_uri + ";stok=" + token + ppoeReConn_uri_suffix;
         lastActiveTime = new Date();

@@ -103,6 +103,9 @@ public class IpCheckAndUpdateTask implements Runnable {
                 }
                 Thread.sleep(3000);
             }
+
+            // 连接成功，延迟5秒，等待小米路由器获取到公网IP
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

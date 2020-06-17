@@ -31,7 +31,7 @@ public class IpCheckAndUpdateTask implements Runnable {
 
         try {
             // 检测计数
-            if (Program.testCount * Program.period > 24 * 60) {
+            if (Program.testCount * Program.period >= 24 * 60) {
                 Program.testCount = 0;
 
                 // 每24小时强制更新

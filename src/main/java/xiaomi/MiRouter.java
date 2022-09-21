@@ -1,14 +1,15 @@
 package xiaomi;
 
-import com.google.gson.JsonArray;
+//import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import utils.HttpUtils;
 import utils.LogUtils;
+import utils.MacAddressAPI;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.security.Key;
+//import java.net.InetAddress;
+//import java.net.NetworkInterface;
+//import java.security.Key;
 import java.util.*;
 
 /**
@@ -80,7 +81,7 @@ public class MiRouter {
     public void login() {
         String loginUrl = "http://" + router_ip + login_uri;
 
-        String mac = getMac();
+        String mac = MacAddressAPI.getMACAddress();
         String timestamp = String.valueOf(System.currentTimeMillis()/1000);
         String random = String.valueOf((int)(Math.random() * 10000));
 
@@ -170,37 +171,40 @@ public class MiRouter {
         return code == 0;
     }
 
-    /**
-     * 获取本机mac地址
-     *
-     * @return mac地址
-     */
-    private String getMac() {
-        InetAddress ia;
-        byte[] mac = null;
-        try {
-            //获取本地IP对象
-            ia = InetAddress.getLocalHost();
-            //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
-            mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        //下面代码是把mac地址拼装成String
-        StringBuffer sb = new StringBuffer();
-        for(int i=0;i<mac.length;i++){
-            if(i!=0){
-                sb.append(":");
-            }
-            //mac[i] & 0xFF 是为了把byte转化为正整数
-            String s = Integer.toHexString(mac[i] & 0xFF);
-            sb.append(s.length()==1?0+s:s);
-        }
-
-        //把字符串所有小写字母改为大写成为正规的mac地址并返回
-        return sb.toString().toUpperCase();
-    }
+//    /**
+//     * 获取本机mac地址
+//     *
+//     * @return mac地址
+//     */
+//    private String getMac() {
+//        InetAddress ia;
+//        byte[] mac = null;
+//        try {
+//            //获取本地IP对象
+//            ia = InetAddress.getLocalHost();
+//            LogUtils.println("getMac(): ia -> " + ia);
+//            LogUtils.println("getMac(): ia.getHostAddress() -> " + ia.getHostAddress());
+//            //获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
+//            mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
+//            LogUtils.println("getMac: mac -> " + mac);
+//        } catch (Exception e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        //下面代码是把mac地址拼装成String
+//        StringBuffer sb = new StringBuffer();
+//        for(int i=0; i<mac.length; i++) {
+//            if(i!=0){
+//                sb.append(":");
+//            }
+//            //mac[i] & 0xFF 是为了把byte转化为正整数
+//            String s = Integer.toHexString(mac[i] & 0xFF);
+//            sb.append(s.length()==1?0+s:s);
+//        }
+//
+//        //把字符串所有小写字母改为大写成为正规的mac地址并返回
+//        return sb.toString().toUpperCase();
+//    }
 
     /**
      * 检测是否已登录，如果未登录或者登录超时，则执行登录

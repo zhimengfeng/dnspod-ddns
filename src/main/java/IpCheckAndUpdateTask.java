@@ -1,4 +1,6 @@
-import dnspod.DNSPod;
+import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+//import dnspod.DNSPod;
+import dnspod.DNSPodV3;
 import dnspod.bean.Record;
 import utils.LogUtils;
 import xiaomi.IpStatus;
@@ -16,10 +18,15 @@ public class IpCheckAndUpdateTask implements Runnable {
 
     private static String pubIp;
 
+    // /**
+    //  * dnspod接口类
+    //  */
+    // private DNSPod dnsPod = new DNSPod();
+
     /**
      * dnspod接口类
      */
-    private DNSPod dnsPod = new DNSPod();
+    private DNSPodV3 dnsPod;
 
     /**
      * 小米路由器接口类
@@ -72,11 +79,9 @@ public class IpCheckAndUpdateTask implements Runnable {
                 LogUtils.println("公网IP未改变！");
                 return;
             }
-            else {
-                pubIp = ipStatus.getIp();
-                LogUtils.println("公网IP发生改变，开始更新！");
-            }
 
+            pubIp = ipStatus.getIp();
+            LogUtils.println("公网IP发生改变，开始更新！");
             // 更新解析记录
             updateRecord();
         }
@@ -116,7 +121,7 @@ public class IpCheckAndUpdateTask implements Runnable {
     /**
      * 更新解析记录
      */
-    private void updateRecord() {
+    private void updateRecord() throws TencentCloudSDKException {
         // 获取所有的解析记录列表
         List<Record> recordList = dnsPod.queryRecordList();
 
@@ -131,5 +136,13 @@ public class IpCheckAndUpdateTask implements Runnable {
         for (Record record : matchedRecordList) {
             dnsPod.updateRecordIp(record, pubIp);
         }
+    }
+
+    public DNSPodV3 getDnsPod() {
+        return dnsPod;
+    }
+
+    public void setDnsPod(DNSPodV3 dnsPod) {
+        this.dnsPod = dnsPod;
     }
 }

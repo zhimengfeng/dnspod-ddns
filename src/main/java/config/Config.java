@@ -32,6 +32,12 @@ public class Config {
     private List<Map<String, String>> dnspodRecordMatchRuleList;
 
     /**
+     * 就近地域接入域名
+     * https://cloud.tencent.com/document/api/1140/40508
+     */
+    private String endpoint = "dnspod.tencentcloudapi.com";
+
+    /**
      * 小米路由器IP
      */
     private String miRouterIp;
@@ -71,6 +77,14 @@ public class Config {
 
     public void setDnspodRecordMatchRuleList(List<Map<String, String>> dnspodRecordMatchRuleList) {
         this.dnspodRecordMatchRuleList = dnspodRecordMatchRuleList;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
     public String getMiRouterIp() {

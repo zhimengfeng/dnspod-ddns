@@ -13,7 +13,7 @@ public class Record {
     /**
      * 解析记录的ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 记录的 TTL 值
@@ -80,11 +80,11 @@ public class Record {
      */
     private String hold;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

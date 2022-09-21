@@ -1,5 +1,6 @@
 import config.Config;
-import dnspod.DNSPod;
+//import dnspod.DNSPod;
+import dnspod.DNSPodV3;
 import org.yaml.snakeyaml.Yaml;
 import utils.LogUtils;
 import xiaomi.MiRouter;
@@ -54,17 +55,19 @@ public class Program {
         // 读取配置信息
         config = yaml.loadAs(Program.class.getResourceAsStream("/config.yml"), Config.class);
 
+        DNSPodV3 dnspod = new DNSPodV3();
         // 将配置信息，分配至对应的工具类中
-        DNSPod.myDomain = config.getMyDomain();
-        DNSPod.secretId = config.getDnspodSecretId();
-        DNSPod.secretKey = config.getDnspodSecretKey();
-        DNSPod.recordMatchRuleList = config.getDnspodRecordMatchRuleList();
+        dnspod.setMyDomain(config.getMyDomain());
+        dnspod.setSecretId(config.getDnspodSecretId());
+        dnspod.setSecretKey(config.getDnspodSecretKey());
+        dnspod.setRecordMatchRuleList(config.getDnspodRecordMatchRuleList());
 
         MiRouter.router_ip = config.getMiRouterIp();
         MiRouter.login_pass = config.getMiRouterLoginPass();
 
         // 启动线程
         IpCheckAndUpdateTask ipCheckAndUpdateTask = new IpCheckAndUpdateTask();
+        ipCheckAndUpdateTask.setDnsPod(dnspod);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
         service.scheduleAtFixedRate(ipCheckAndUpdateTask, 0, 30, TimeUnit.MINUTES);

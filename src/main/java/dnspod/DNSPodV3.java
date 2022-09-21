@@ -132,6 +132,7 @@ public class DNSPodV3 {
 
     /**
      * 获取匹配的解析记录列表（检索出需要修改IP地址的解析列表）
+     * <a href="https://cloud.tencent.com/document/api/1427/56166">dnspod官方文档 - 获取域名的解析记录</a>
      *
      * @param recordList
      * @return
@@ -158,6 +159,7 @@ public class DNSPodV3 {
 
     /**
      * 更新解析记录解析的IP地址
+     * <a href="https://cloud.tencent.com/document/api/1427/56158">dnspod官方文档 - 更新动态DNS记录</a>
      *
      * @param record 解析记录
      * @param ip 解析至主机的IP

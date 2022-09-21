@@ -67,6 +67,7 @@ public class DNSPodV3 {
 
     /**
      * 从DNSPod查询所有的解析记录
+     * <a href="https://cloud.tencent.com/document/api/1427/56166">dnspod官方文档 - 获取域名的解析记录</a>
      *
      * @return 解析记录列表
      */
@@ -132,7 +133,6 @@ public class DNSPodV3 {
 
     /**
      * 获取匹配的解析记录列表（检索出需要修改IP地址的解析列表）
-     * <a href="https://cloud.tencent.com/document/api/1427/56166">dnspod官方文档 - 获取域名的解析记录</a>
      *
      * @param recordList
      * @return
@@ -204,53 +204,53 @@ public class DNSPodV3 {
         }
     }
 
-    /**
-     * 仅用于debug测试
-     * @param args 未使用
-     */
-    public static void main(String[] args) {
-        String secretId = "**************";
-        String secretKey = "**************************";
-        String myDomain = "baidu.com";
-        String endpoint = "dnspod.tencentcloudapi.com";
-        try{
-            DNSPodV3 v3 = new DNSPodV3();
-            v3.setSecretId(secretId);
-            v3.setSecretKey(secretKey);
-            v3.setMyDomain(myDomain);
-            v3.setEndpoint(endpoint);
-
-            List<Map<String, String>> matchRuleList = new ArrayList<>();
-            Map<String, String> temp = new HashMap<>();
-            temp.put("subDomain", "www");
-            temp.put("type", "A");
-            matchRuleList.add(temp);
-
-            temp = new HashMap<>();
-            temp.put("subDomain", "*");
-            temp.put("type", "A");
-            matchRuleList.add(temp);
-
-            temp = new HashMap<>();
-            temp.put("subDomain", "@");
-            temp.put("type", "A");
-            matchRuleList.add(temp);
-
-            v3.setRecordMatchRuleList(matchRuleList);
-
-            List<Record> list = v3.queryRecordList();
-            System.out.println(list);
-
-            List<Record> matchedRecordList = v3.getMatchedRecordList(list);
-            if (matchedRecordList.size() > 0) {
-                for (Record item : matchedRecordList) {
-                    v3.updateRecordIp(item, "111.111.111.111");
-                }
-            }
-        } catch (TencentCloudSDKException e) {
-            System.out.println(e.toString());
-        }
-    }
+//    /**
+//     * 仅用于debug测试
+//     * @param args 未使用
+//     */
+//    public static void main(String[] args) {
+//        String secretId = "**************";
+//        String secretKey = "**************************";
+//        String myDomain = "baidu.com";
+//        String endpoint = "dnspod.tencentcloudapi.com";
+//        try{
+//            DNSPodV3 v3 = new DNSPodV3();
+//            v3.setSecretId(secretId);
+//            v3.setSecretKey(secretKey);
+//            v3.setMyDomain(myDomain);
+//            v3.setEndpoint(endpoint);
+//
+//            List<Map<String, String>> matchRuleList = new ArrayList<>();
+//            Map<String, String> temp = new HashMap<>();
+//            temp.put("subDomain", "www");
+//            temp.put("type", "A");
+//            matchRuleList.add(temp);
+//
+//            temp = new HashMap<>();
+//            temp.put("subDomain", "*");
+//            temp.put("type", "A");
+//            matchRuleList.add(temp);
+//
+//            temp = new HashMap<>();
+//            temp.put("subDomain", "@");
+//            temp.put("type", "A");
+//            matchRuleList.add(temp);
+//
+//            v3.setRecordMatchRuleList(matchRuleList);
+//
+//            List<Record> list = v3.queryRecordList();
+//            System.out.println(list);
+//
+//            List<Record> matchedRecordList = v3.getMatchedRecordList(list);
+//            if (matchedRecordList.size() > 0) {
+//                for (Record item : matchedRecordList) {
+//                    v3.updateRecordIp(item, "111.111.111.111");
+//                }
+//            }
+//        } catch (TencentCloudSDKException e) {
+//            System.out.println(e.toString());
+//        }
+//    }
 
     public String getMyDomain() {
         return myDomain;

@@ -64,6 +64,10 @@ public class IpCheckAndUpdateTask implements Runnable {
                 ipStatus = miRouter.getPubIp();
             }
 
+//            // 测试用
+//            IpStatus ipStatus = new IpStatus();
+//            ipStatus.setIp("1.1.1.1");
+
             if (ipStatus.getIp() == null || "".equals(ipStatus.getIp())) {
                 LogUtils.println("公网IP获取错误！");
                 // 暂时先停止此次任务
